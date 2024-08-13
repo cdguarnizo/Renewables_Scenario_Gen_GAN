@@ -40,7 +40,7 @@ print("shape of training samples ", shape(trX))
 print("Training data loaded")
 
 # Instanciar el modelo
-gan = GAN(batch_size=bath_size, image_shape=image_shape, dim_z=dim_z, dim_y=events_num)
+gan = GAN(batch_size=batch_size, image_shape=image_shape, dim_z=dim_z, dim_y=events_num)
 print("W_DCGAN model initialized")
 
 #Z_tf,Y_tf: placeholder
