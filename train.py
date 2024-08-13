@@ -38,14 +38,8 @@ trX, trY=load_wind()
 print("shape of training samples ", shape(trX))
 print("Training data loaded")
 
-dcgan_model = GAN(
-    dim_y=events_num # Change parameters based on number of events
-    #change paprameters here for model revision
-    #dim_z: the dimension for input noise
-    #W1,W2,W3: the dimension for convolutional layers
-        )
+dcgan_model = GAN(batch_size=batch_size, image_shape=image_shape, dim_z=dim_z, dim_y=events_num)
 print("W_DCGAN model initialized")
-
 
 #Z_tf,Y_tf: placeholder
 #image_tf: image placeholder
