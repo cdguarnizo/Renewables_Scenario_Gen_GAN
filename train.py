@@ -118,10 +118,10 @@ for epoch in range(n_epochs):
                         })
             discrim_loss_val, p_real_val, p_gen_val = sess.run([d_cost_tf,p_real,p_gen], feed_dict={Z_tf:Zs, image_tf:Xs, Y_tf:Ys})
 
-            '''print("=========== updating G ==========")
-            print("iteration:", iterations)
-            print("gen loss:", gen_loss_val)
-            print("discrim loss:", discrim_loss_val)'''
+            #print("=========== updating G ==========")
+            #print("iteration:", iterations)
+            #print("gen loss:", gen_loss_val)
+            #print("discrim loss:", discrim_loss_val)
 
         else:
             _, discrim_loss_val = sess.run(
@@ -132,10 +132,10 @@ for epoch in range(n_epochs):
                         image_tf:Xs
                         })
 
-            '''print("=========== updating D ==========")
-            print("iteration:", iterations)
-            print("gen loss:", gen_loss_val)
-            print("discrim loss:", discrim_loss_val)'''
+            #print("=========== updating D ==========")
+            #print("iteration:", iterations)
+            #print("gen loss:", gen_loss_val)
+            #print("discrim loss:", discrim_loss_val)
 
             gen_loss_val, p_real_val, p_gen_val = sess.run([g_cost_tf, p_real, p_gen],
                                                        feed_dict={Z_tf: Zs, image_tf: Xs, Y_tf: Ys})
