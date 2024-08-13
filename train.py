@@ -58,7 +58,7 @@ Y_tf = tf.keras.Input(shape=(gan.dim_y,), name='Y')
 image_tf = tf.keras.Input(shape=gan.image_shape, name='image_real')
 
 # Crear el modelo de Keras
-model = tf.keras.Model(inputs=[Z, Y, image_real], outputs=[discrim_cost, gen_cost, p_real, p_gen])
+model = tf.keras.Model(inputs=[Z_tf, Y_tf, tf], outputs=[discrim_cost, gen_cost, p_real, p_gen])
 
 # Compilar el modelo (ajusta los optimizadores y las funciones de pérdida según tus necesidades)
 model.compile(optimizer='adam', loss='binary_crossentropy')
