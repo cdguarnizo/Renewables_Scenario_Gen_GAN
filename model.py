@@ -6,7 +6,7 @@ import tensorflow as tf
 
 
 def batchnormalize(X, eps=1e-8, g=None, b=None):
-    if X.shape().ndims == 4:
+    if X.shape.ndims == 4:
         mean = tf.reduce_mean(X, [0,1,2])
         std = tf.reduce_mean( tf.square(X-mean), [0,1,2] )
         X = (X-mean) / tf.sqrt(std+eps)
@@ -16,7 +16,7 @@ def batchnormalize(X, eps=1e-8, g=None, b=None):
             b = tf.reshape(b, [1,1,1,-1])
             X = X*g + b
 
-    elif X.shape().ndims == 2:
+    elif X.shape.ndims == 2:
         mean = tf.reduce_mean(X, 0)
         std = tf.reduce_mean(tf.square(X-mean), 0)
         X = (X-mean) / tf.sqrt(std+eps)
@@ -103,22 +103,22 @@ class GAN():
 
     def discriminate(self, image, Y):
         print("Initializing the discriminator")
-        print("Y shape", Y.shape())
+        print("Y shape", Y.shape)
         yb = tf.reshape(Y, tf.stack([self.batch_size, 1, 1, self.dim_y]))
-        print("image shape", image.shape())
-        print("yb shape", yb.shape())
+        print("image shape", image.shape)
+        print("yb shape", yb.shape)
         X = tf.concat([image, yb * tf.ones([self.batch_size, 24, 24, self.dim_y])],3)
-        print("X shape", X.shape())
+        print("X shape", X.shape)
         h1 = lrelu( tf.nn.conv2d( X, self.discrim_W1, strides=[1,2,2,1], padding='SAME' ))
-        print("h1 shape", h1.shape())
+        print("h1 shape", h1.shape)
         h1 = tf.concat([h1, yb * tf.ones([self.batch_size, 12, 12, self.dim_y])],3)
-        print("h1 shape", h1.shape())
+        print("h1 shape", h1.shape)
         h2 = lrelu(batchnormalize( tf.nn.conv2d( h1, self.discrim_W2, strides=[1,2,2,1], padding='SAME')) )
-        print("h2 shape", h2.shape())
+        print("h2 shape", h2.shape)
         h2 = tf.reshape(h2, [self.batch_size, -1])
         h2 = tf.concat([h2, Y], 1)
         discri=tf.matmul(h2, self.discrim_W3 )
-        print("discri shape", discri.shape())
+        print("discri shape", discri.shape)
         h3 = lrelu(batchnormalize(discri))
         return h3
 
