@@ -106,6 +106,7 @@ class GAN():
         print("Initializing the discriminator")
         print("Y shape", Y.shape)
         yb = tf.reshape(Y, tf.stack([self.batch_size, 1, 1, self.dim_y]))
+        yb = tf.keras.layers.Reshape(tf.stack([self.batch_size, 1, 1, self.dim_y]))(Y)
         print("image shape", image.shape)
         print("yb shape", yb.shape)
         X = tf.concat([image, yb * tf.ones([self.batch_size, 24, 24, self.dim_y])],3)
