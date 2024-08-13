@@ -12,6 +12,7 @@ from load import load_wind, load_solar_data, load_wind_data_spatial #Change the 
 from numpy import shape
 import csv
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 n_epochs = 70 #Number of overall training epochs on training data
 learning_rate = 0.0002 
@@ -38,14 +39,23 @@ trX, trY=load_wind()
 print("shape of training samples ", shape(trX))
 print("Training data loaded")
 
-dcgan_model = GAN(batch_size=batch_size, image_shape=image_shape, dim_z=dim_z, dim_y=events_num)
+# Instanciar el modelo
+gan = GAN(batch_size=bath_size, image_shape=image_shape, dim_z=dim_z, dim_y=events_num)
 print("W_DCGAN model initialized")
 
 #Z_tf,Y_tf: placeholder
 #image_tf: image placeholder
 #d_cost_tf, g_cost_tf: discriminator and generator cost#16 is the maximum value for wind capacity we use. Change to your max value here
 #p_real, p_gen: the output of discriminator to judge real/generated
+
+# Definir las entradas
+'''
 Z_tf, Y_tf, image_tf, d_cost_tf, g_cost_tf, p_real, p_gen = dcgan_model.build_model()
+'''
+Z_tf = tf.keras.Input(shape=(gan.dim_z,), name='Z')
+Y_tf = tf.keras.Input(shape=(gan.dim_y,), name='Y')
+image_tf = tf.keras.Input(shape=gan.image_shape, name='image_real')
+
 sess = tf.InteractiveSession()
 saver = tf.train.Saver(max_to_keep=10)
 
