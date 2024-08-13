@@ -132,7 +132,7 @@ class GAN():
         #yb = tf.reshape(Y, [self.batch_size, 1, 1, self.dim_y])
         yb = tf.keras.layers.Reshape([self.batch_size, 1, 1, self.dim_y])(Y)
         #Z = tf.concat([Z,Y],1)
-        Z = keras.layers.Concatenate(1)([Z,Y])
+        Z = tf.keras.layers.Concatenate(1)([Z,Y])
         print("Z shape", Z.shape)
         h1 = tf.nn.relu(batchnormalize(tf.matmul(Z, self.gen_W1)))
         print("h1 shape", h1.shape)
