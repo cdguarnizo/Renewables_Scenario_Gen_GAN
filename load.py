@@ -27,7 +27,7 @@ def load_wind():
         train = train / 16
 
         # print(shape(train))
-        if trX == []:
+        if x == 0:
             trX = train
         else:
             trX = np.concatenate((trX, train), axis=0)
