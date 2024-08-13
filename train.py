@@ -52,12 +52,11 @@ print("W_DCGAN model initialized")
 '''
 Z_tf, Y_tf, image_tf, d_cost_tf, g_cost_tf, p_real, p_gen = dcgan_model.build_model()
 sess = tf.InteractiveSession()
+saver = tf.train.Saver(max_to_keep=10)
 '''
 Z_tf = tf.keras.Input(shape=(gan.dim_z,), name='Z')
 Y_tf = tf.keras.Input(shape=(gan.dim_y,), name='Y')
 image_tf = tf.keras.Input(shape=gan.image_shape, name='image_real')
-
-saver = tf.train.Saver(max_to_keep=10)
 
 discrim_vars = filter(lambda x: x.name.startswith('discrim'), tf.trainable_variables())
 gen_vars = filter(lambda x: x.name.startswith('gen'), tf.trainable_variables())
