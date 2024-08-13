@@ -65,22 +65,24 @@ class GAN():
         self.dim_W2 = dim_W2
         self.dim_W3 = dim_W3
         self.dim_channel = dim_channel
-        self.gen_W1 = tf.Variable(tf.random_normal([dim_z+dim_y, dim_W1], stddev=0.02), name='gen_W1')
-        self.gen_W2 = tf.Variable(tf.random_normal([dim_W1+dim_y, dim_W2*6*6], stddev=0.02), name='gen_W2')
-        self.gen_W3 = tf.Variable(tf.random_normal([5,5,dim_W3,dim_W2+dim_y], stddev=0.02), name='gen_W3')
-        self.gen_W4 = tf.Variable(tf.random_normal([5,5,dim_channel,dim_W3+dim_y], stddev=0.02), name='gen_W4')
+        self.gen_W1 = tf.Variable(tf.random.normal([dim_z+dim_y, dim_W1], stddev=0.02), name='gen_W1')
+        self.gen_W2 = tf.Variable(tf.random.normal([dim_W1+dim_y, dim_W2*6*6], stddev=0.02), name='gen_W2')
+        self.gen_W3 = tf.Variable(tf.random.normal([5,5,dim_W3,dim_W2+dim_y], stddev=0.02), name='gen_W3')
+        self.gen_W4 = tf.Variable(tf.random.normal([5,5,dim_channel,dim_W3+dim_y], stddev=0.02), name='gen_W4')
 
-        self.discrim_W1 = tf.Variable(tf.random_normal([5,5,dim_channel+dim_y,dim_W3], stddev=0.02), name='discrim_W1')
-        self.discrim_W2 = tf.Variable(tf.random_normal([5,5,dim_W3+dim_y,dim_W2], stddev=0.02), name='discrim_W2')
-        self.discrim_W3 = tf.Variable(tf.random_normal([dim_W2*6*6+dim_y,dim_W1], stddev=0.02), name='discrim_W3')
-        self.discrim_W4 = tf.Variable(tf.random_normal([dim_W1+dim_y,1], stddev=0.02), name='discrim_W4')
+        self.discrim_W1 = tf.Variable(tf.random.normal([5,5,dim_channel+dim_y,dim_W3], stddev=0.02), name='discrim_W1')
+        self.discrim_W2 = tf.Variable(tf.random.normal([5,5,dim_W3+dim_y,dim_W2], stddev=0.02), name='discrim_W2')
+        self.discrim_W3 = tf.Variable(tf.random.normal([dim_W2*6*6+dim_y,dim_W1], stddev=0.02), name='discrim_W3')
+        self.discrim_W4 = tf.Variable(tf.random.normal([dim_W1+dim_y,1], stddev=0.02), name='discrim_W4')
 
     def build_model(self):
-
-        Z = tf.placeholder(tf.float32, [self.batch_size, self.dim_z])
-        Y = tf.placeholder(tf.float32, [self.batch_size, self.dim_y])
-
-        image_real = tf.placeholder(tf.float32, [self.batch_size]+self.image_shape)
+        #Z = tf.placeholder(tf.float32, [self.batch_size, self.dim_z])
+        Z = tf.keras.Input(name='Z', shape=(self.batch_size, self.dim_z), dtype=tf.dtypes.float32)
+        #Y = tf.placeholder(tf.float32, [self.batch_size, self.dim_y])
+        Y = tf.keras.Input(name='Y', shape=(self.batch_size, self.dim_y), dtype=tf.dtypes.float32)
+        
+        #image_real = tf.placeholder(tf.float32, [self.batch_size]+self.image_shape)
+        image_real = tf.keras.Input(name='image_real', shape=list([self.batch_size]+self.image_shape), dtype=tf.dtypes.float32)
         h4 = self.generate(Z,Y)
         #image_gen comes from sigmoid output of generator
         image_gen = tf.nn.sigmoid(h4)
