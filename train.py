@@ -141,8 +141,8 @@ for epoch in range(n_epochs):
                                                        feed_dict={Z_tf: Zs, image_tf: Xs, Y_tf: Ys})
         P_real.append(p_real_val.mean())
         P_fake.append(p_gen_val.mean())
-        '''gen_loss_val, p_real_val, p_gen_val = sess.run([g_cost_tf, p_real, p_gen],
-                                                       feed_dict={Z_tf: Zs, image_tf: fake_data, Y_tf: Ys})'''
+        #gen_loss_val, p_real_val, p_gen_val = sess.run([g_cost_tf, p_real, p_gen],
+        #                                               feed_dict={Z_tf: Zs, image_tf: fake_data, Y_tf: Ys})
         discrim_loss.append(discrim_loss_val)
 
 
