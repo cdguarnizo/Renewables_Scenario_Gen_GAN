@@ -58,7 +58,7 @@ Y_tf = tf.keras.Input(shape=(gan.dim_y,), name='Y')
 image_tf = tf.keras.Input(shape=gan.image_shape, name='image_real')
 
 # Llamar al modelo
-discrim_cost, gen_cost, p_real, p_gen = gan([Z, Y, image_real])
+discrim_cost, gen_cost, p_real, p_gen = gan([Z_tf, Y_tf, image_tf])
 
 # Crear el modelo de Keras
 model = tf.keras.Model(inputs=[Z_tf, Y_tf, tf], outputs=[discrim_cost, gen_cost, p_real, p_gen])
