@@ -47,17 +47,23 @@ print("W_DCGAN model initialized")
 #image_tf: image placeholder
 #d_cost_tf, g_cost_tf: discriminator and generator cost#16 is the maximum value for wind capacity we use. Change to your max value here
 #p_real, p_gen: the output of discriminator to judge real/generated
-
-# Definir las entradas
 '''
 Z_tf, Y_tf, image_tf, d_cost_tf, g_cost_tf, p_real, p_gen = dcgan_model.build_model()
 sess = tf.InteractiveSession()
 saver = tf.train.Saver(max_to_keep=10)
 '''
+# Definir las entradas
 Z_tf = tf.keras.Input(shape=(gan.dim_z,), name='Z')
 Y_tf = tf.keras.Input(shape=(gan.dim_y,), name='Y')
 image_tf = tf.keras.Input(shape=gan.image_shape, name='image_real')
 
+# Crear el modelo de Keras
+model = tf.keras.Model(inputs=[Z, Y, image_real], outputs=[discrim_cost, gen_cost, p_real, p_gen])
+
+# Compilar el modelo (ajusta los optimizadores y las funciones de pérdida según tus necesidades)
+model.compile(optimizer='adam', loss='binary_crossentropy')
+
+'''
 discrim_vars = filter(lambda x: x.name.startswith('discrim'), tf.trainable_variables())
 gen_vars = filter(lambda x: x.name.startswith('gen'), tf.trainable_variables())
 discrim_vars = [i for i in discrim_vars]
@@ -191,3 +197,4 @@ plt.show()
 plt.plot(discrim_loss,label="discrim_loss")
 plt.legend()
 plt.show()
+'''
