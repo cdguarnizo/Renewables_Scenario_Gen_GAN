@@ -105,7 +105,7 @@ class GAN():
     def discriminate(self, image, Y):
         print("Initializing the discriminator")
         print("Y shape", Y.shape)
-        yb = tf.reshape(Y, tf.stack([self.batch_size, 1, 1, self.dim_y]))
+        #yb = tf.reshape(Y, tf.stack([self.batch_size, 1, 1, self.dim_y]))
         yb = tf.keras.layers.Reshape(tf.stack([self.batch_size, 1, 1, self.dim_y]))(Y)
         print("image shape", image.shape)
         print("yb shape", yb.shape)
