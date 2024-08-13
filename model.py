@@ -2,6 +2,7 @@
 
 #-*- coding: utf-8 -*-
 import tensorflow as tf
+tf.compat.v1.keras
 #import ipdb
 
 
