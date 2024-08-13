@@ -74,7 +74,9 @@ class GAN():
         h1 = self.leaky_relu(self.discrim_conv2d_1(X))
         h1 = layers.Concatenate(axis=3)([h1, yb * tf.ones([self.batch_size, 12, 12, self.dim_y])])
         h2 = self.leaky_relu(self.batchnormalize(self.discrim_conv2d_2(h1)))
-        h2 = layers.Reshape([self.batch_size, -1])(h2)  # Cambiado para usar Reshape de Keras
+        h2 = layers.Reshape([self.batch_size, -1])(h2)  # Flatten the tensor
+        h2_shape = tf.shape(h2)
+        h2 = layers.Reshape([h2_shape[1]])(h2)  # Reshape to 2D tensor
         h2 = layers.Concatenate(axis=1)([h2, Y])
         h3 = self.leaky_relu(self.batchnormalize(self.discrim_W3(h2)))
         return h3
