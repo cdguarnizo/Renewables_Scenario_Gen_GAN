@@ -11,7 +11,16 @@ class LeakyReLU(layers.Layer):
 
     def call(self, X):
         return tf.maximum(X, self.leak * X)
+'''
+def lrelu(X, leak=0.2):
+    f1 = 0.5 * (1 + leak)
+    f2 = 0.5 * (1 - leak)
+    return f1 * X + f2 * tf.abs(X)
+'''
 
+def batchnormalize(self, X, epsilon=1e-8):
+    return layers.BatchNormalization()(X)
+'''
 def batchnormalize(X, eps=1e-8, g=None, b=None):
     if X.get_shape().ndims == 4:
         mean = tf.reduce_mean(X, [0,1,2])
@@ -37,11 +46,7 @@ def batchnormalize(X, eps=1e-8, g=None, b=None):
         raise NotImplementedError
 
     return X
-
-def lrelu(X, leak=0.2):
-    f1 = 0.5 * (1 + leak)
-    f2 = 0.5 * (1 - leak)
-    return f1 * X + f2 * tf.abs(X)
+'''
 
 def bce(o, t):
     o = tf.clip_by_value(o, 1e-7, 1. - 1e-7)
