@@ -52,10 +52,6 @@ def bce(o, t):
     o = tf.clip_by_value(o, 1e-7, 1. - 1e-7)
     return tf.math.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(o, t))
 
-
-import tensorflow as tf
-from tensorflow.keras import layers
-
 class GAN():
     def __init__(
             self,
